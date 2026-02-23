@@ -30,11 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
   `student_id` varchar(50) DEFAULT NULL,
-  `fullname` varchar(100) DEFAULT NULL,
+  -- Slit full name into 3 parts.
+  `first_name` varchar(50) DEFAULT NULL,
+  `middle_name` varchar(50) DEFAULT NULL,
+  `last_name` varchar(50) DEFAULT NULL,
+
   `email` varchar(100) DEFAULT NULL,
-  `course` varchar(100) DEFAULT NULL,
-  `course_description` varchar(255) DEFAULT NULL
+  `course_id` int(11) NOT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Create separate table for courses to avoid data redundancy and improve database normalization.
+CREATE TABLE `courses` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `course_name` varchar(100) NOT NULL,
+  `course_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -53,7 +65,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'admin', 'admin123');
+(1, 'admin', '$2y$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy');
 
 --
 -- Indexes for dumped tables
