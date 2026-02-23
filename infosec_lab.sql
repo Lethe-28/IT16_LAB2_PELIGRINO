@@ -38,10 +38,8 @@ CREATE TABLE `courses` (
 CREATE TABLE `students` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `student_id` varchar(50) DEFAULT NULL,
-  -- Split full name into 3 parts.
-  `first_name` varchar(50) DEFAULT NULL,
-  `middle_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
+  `fullname` varchar(50) DEFAULT NULL,
+
 
   `email` varchar(100) DEFAULT NULL,
   `course_id` int(11) NOT NULL,
