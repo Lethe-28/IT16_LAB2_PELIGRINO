@@ -1,9 +1,22 @@
 <?php
 include("db.php");
 
-$id = $_GET['id'];
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
 
-mysqli_query($conn, "DELETE FROM students WHERE id=$id");
+// Strictly enforce POST requests
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['id'])) {
+    $id = filter_var($_POST['id'], FILTER_VALIDATE_INT);
+
+    if ($id) {
+        $stmt = $conn->prepare("DELETE FROM students WHERE id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+}
 
 header("Location: dashboard.php");
-?>
+exit();
