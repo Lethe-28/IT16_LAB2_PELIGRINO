@@ -40,12 +40,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add'])) {
     <h2>Add Student</h2>
     <?php if (isset($error)) echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>"; ?>
     <form method="POST">
-        Student ID: <input type="text" name="student_id" required><br>
-        Full Name: <input type="text" name="fullname" required><br>
-        Email: <input type="text" name="email" required><br>
-        Course ID (1 for BSIT, 2 for BSCS): <input type="number" name="course_id" required><br>
-        <button name="add">Add</button>
+        <input type="text" name="student_id" placeholder="Student ID" required><br>
+        <input type="text" name="fullname" placeholder="Full Name" required><br>
+        <input type="email" name="email" placeholder="Email" required><br>
+
+        <select name="course_id" required style="width: 90%; padding: 8px; margin: 5px;">
+            <option value="" disabled selected>Select a Course</option>
+            <?php
+            // Fetch all courses from the database to populate the dropdown
+            $courses_query = "SELECT id, course_name FROM courses";
+            $courses_result = $conn->query($courses_query);
+
+            while ($course = $courses_result->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($course['id']) . '">' . htmlspecialchars($course['course_name']) . '</option>';
+            }
+            ?>
+        </select><br>
+
+        <button name="add">Add Student</button>
     </form>
+    <br>
+    <a href="dashboard.php">Back to Dashboard</a>
+    </div>
 
 </body>
 
